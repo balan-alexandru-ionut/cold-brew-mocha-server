@@ -1,0 +1,23 @@
+volumes:
+  database:
+
+services:
+  postgres:
+    image: postgres:alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mocha-dev
+      POSTGRES_USER: mocha-dev
+      POSTGRES_DB: mocha-db
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
